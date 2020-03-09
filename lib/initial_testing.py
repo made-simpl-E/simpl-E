@@ -10,6 +10,8 @@ dict = {0: 0, 1: 1, 2: 2}
 func name(args) {
     return 4 + args
 }
+
+name()
 '''
 
 if __name__ == '__main__':

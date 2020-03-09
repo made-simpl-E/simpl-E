@@ -17,15 +17,27 @@ class SimpleLexer(object):
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
         self.scope_level = 0
+        self.current_indentation = ''
+
+    def input(self, data):
+        self.lexer.input(data)
 
     def test(self, data):
-        self.lexer.input(data)
+        self.input(data)
         for tok in self.lexer:
-            print(' ' * 4 * self.scope_level + str(tok))
+            print(self.current_indentation * self.scope_level + str(tok))
 
     t_ignore = r' '
     t_MAP_ignore = r' '
     t_ignore_COMMENT = r'\#.*'
+
+    def _push_scope(self):
+        self.scope_level += 1
+        self.current_indentation += '    '
+
+    def _pop_scope(self):
+        self.scope_level -= 1
+        self.current_indentation = self.current_indentation[:-4]
 
     @TOKEN(NUMBER_RE)
     def t_MAP_NUMBER(self, t):
@@ -53,7 +65,7 @@ class SimpleLexer(object):
     @TOKEN(LBRACE_RE)
     def t_FUNC_lbrace(self, t):
         t.type = '{'
-        self.scope_level += 1
+        self._push_scope()
         return t
 
     @TOKEN(LBRACE_RE)
@@ -63,8 +75,8 @@ class SimpleLexer(object):
 
     @TOKEN(RBRACE_RE)
     def t_FUNC_rbrace(self, t):
-        t.type = '{'
-        self.scope_level -= 1
+        t.type = '}'
+        self._pop_scope()
         self.lexer.pop_state()
         return t
 
