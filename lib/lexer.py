@@ -27,6 +27,9 @@ class SimpleLexer(object):
         for tok in self.lexer:
             print(self.current_indentation * self.scope_level + str(tok))
 
+    def token(self):
+        return self.lexer.token()
+
     t_ignore = r' '
     t_MAP_ignore = r' '
     t_ignore_COMMENT = r'\#.*'
