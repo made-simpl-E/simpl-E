@@ -14,5 +14,5 @@ func name(args) {
 
 if __name__ == '__main__':
     lexer = SimpleLexer()
-    lexer.lex(data)
+    lexer.test(data)
 

@@ -18,7 +18,7 @@ class SimpleLexer(object):
         self.lexer = lex.lex(module=self, **kwargs)
         self.scope_level = 0
 
-    def lex(self, data):
+    def test(self, data):
         self.lexer.input(data)
         for tok in self.lexer:
             print(' ' * 4 * self.scope_level + str(tok))
@@ -39,7 +39,6 @@ class SimpleLexer(object):
     @TOKEN('func')
     def t_FUNC(self, t):
         self.lexer.push_state('FUNC')
-        print("enter func state")
         return t
 
     @TOKEN(ID_RE)
@@ -54,29 +53,24 @@ class SimpleLexer(object):
     @TOKEN(LBRACE_RE)
     def t_FUNC_lbrace(self, t):
         t.type = '{'
-        self.lexer.pop_state()
-        print("exit func state")
         self.scope_level += 1
         return t
 
     @TOKEN(LBRACE_RE)
     def t_lbrace(self, t):
         t.type = '{'
-        self.lexer.push_state('MAP')
-        print("enter map state")
         return t
 
     @TOKEN(RBRACE_RE)
-    def t_MAP_rbrace(self, t):
-        t.type = '}'
+    def t_FUNC_rbrace(self, t):
+        t.type = '{'
+        self.scope_level -= 1
         self.lexer.pop_state()
-        print("exit map state")
         return t
 
     @TOKEN(RBRACE_RE)
     def t_rbrace(self, t):
         t.type = '}'
-        self.scope_level -= 1
         return t
 
     @TOKEN(r'\n+')
