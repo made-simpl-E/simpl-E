@@ -1,10 +1,12 @@
 import ply.lex as lex
 from ply.lex import TOKEN
 
-from tokens import tokens, reserved
+from tokens import literals, tokens, reserved
 
 
 class SimpleLexer(object):
+    literals = literals
+
     tokens = tokens
 
     reserved = reserved
@@ -17,10 +19,6 @@ class SimpleLexer(object):
         for tok in self.lexer:
             print(tok)
 
-    t_PLUS = r'\+'
-    t_MINUS = r'-'
-    t_TIMES = r'\*'
-    t_DIVIDE = r'\/'
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
     t_LBRACE = r'\{'
