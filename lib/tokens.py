@@ -4,11 +4,15 @@ reserved = {
     'for': 'FOR',
     'while': 'WHILE',
     'in': 'IN',
-    'func': 'FUNC'
 }
 
 tokens = (
     'NUMBER',
+    'FUNC',
+    'FUNC_LBRACE',
+    'FUNC_RBRACE',
+    'DICT_LBRACE',
+    'DICT_RBRACE',
     'ID',
     'COMMENT',
 ) + tuple(reserved.values())
@@ -20,12 +24,15 @@ literals = [
     '/',
     '(',
     ')',
-    '{',
-    '}',
     '[',
     ']',
     '.',
     ',',
     ':',
 ]
+
+states = (
+    ('MAP', 'exclusive'),
+    ('FUNC', 'inclusive'),
+)
 
