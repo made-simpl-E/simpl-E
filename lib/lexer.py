@@ -52,30 +52,30 @@ class SimpleLexer(object):
         return t
 
     @TOKEN(LBRACE_RE)
-    def t_FUNC_LBRACE(self, t):
-        t.type = 'FUNC_LBRACE'
+    def t_FUNC_lbrace(self, t):
+        t.type = '{'
         self.lexer.pop_state()
         print("exit func state")
         self.scope_level += 1
         return t
 
     @TOKEN(LBRACE_RE)
-    def t_LBRACE(self, t):
-        t.type = 'DICT_LBRACE'
+    def t_lbrace(self, t):
+        t.type = '{'
         self.lexer.push_state('MAP')
         print("enter map state")
         return t
 
     @TOKEN(RBRACE_RE)
-    def t_MAP_RBRACE(self, t):
-        t.type = 'DICT_RBRACE'
+    def t_MAP_rbrace(self, t):
+        t.type = '}'
         self.lexer.pop_state()
         print("exit map state")
         return t
 
     @TOKEN(RBRACE_RE)
-    def t_RBRACE(self, t):
-        t.type = 'FUNC_RBRACE'
+    def t_rbrace(self, t):
+        t.type = '}'
         self.scope_level -= 1
         return t
 
