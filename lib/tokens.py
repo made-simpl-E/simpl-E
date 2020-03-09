@@ -9,15 +9,6 @@ reserved = {
 
 tokens = (
     'NUMBER',
-    'LPAREN',
-    'RPAREN',
-    'LBRACE',
-    'RBRACE',
-    'LSQBRACE',
-    'RSQBRACE',
-    'PERIOD',
-    'COMMA',
-    'COLON',
     'ID',
     'COMMENT',
 ) + tuple(reserved.values())
@@ -27,5 +18,14 @@ literals = [
     '-',
     '*',
     '/',
+    '(',
+    ')',
+    '{',
+    '}',
+    '[',
+    ']',
+    '.',
+    ',',
+    ':',
 ]
 

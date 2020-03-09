@@ -19,16 +19,6 @@ class SimpleLexer(object):
         for tok in self.lexer:
             print(tok)
 
-    t_LPAREN = r'\('
-    t_RPAREN = r'\)'
-    t_LBRACE = r'\{'
-    t_RBRACE = r'\}'
-    t_LSQBRACE = r'\['
-    t_RSQBRACE = r'\]'
-    t_PERIOD = r'\.'
-    t_COMMA = r','
-    t_COLON = r':'
-
     t_ignore = r' '
     t_ignore_COMMENT = r'\#.*'
 
