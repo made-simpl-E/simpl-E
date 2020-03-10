@@ -9,6 +9,7 @@ reserved = {
 tokens = (
     'INT',
     'FLOAT',
+    'BOOL',
     'FUNC',
     'FUNC_IDENTIFIER',
     'FUNC_ARG_IDENTIFIER',
