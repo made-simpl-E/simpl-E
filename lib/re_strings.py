@@ -1,0 +1,8 @@
+ID_RE = r'[a-zA-Z_][a-zA-Z_0-9]*'
+NUMBER_RE = r'\d+'
+LBRACE_RE = r'\{'
+RBRACE_RE = r'\}'
+LSQBRACE_RE = r'\['
+RSQBRACE_RE = r'\]'
+LPAREN_RE = r'\('
+RPAREN_RE = r'\)'
