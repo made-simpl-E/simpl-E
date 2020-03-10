@@ -33,6 +33,10 @@ class SimpleParser:
             result = self.parse(data)
             print(result)
 
+    def p_assignment(self, p):
+        '''assignment : IDENTIFIER '=' expression'''
+        p[0] = p[3]
+
     def p_expression(self, p):
         '''expression : expression '+' expression
                       | expression '-' expression
