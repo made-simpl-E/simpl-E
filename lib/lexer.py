@@ -94,6 +94,22 @@ class SimpleLexer(object):
         t.type = '}'
         return t
 
+    @TOKEN(LPAREN_RE)
+    def t_lparen(self, t):
+        if self.find_func_args:
+            t.type = 'FUNC_LPAREN'
+        else:
+            t.type = '('
+        return t
+
+    @TOKEN(RPAREN_RE)
+    def t_rparen(self, t):
+        if self.find_func_args:
+            t.type = 'FUNC_RPAREN'
+        else:
+            t.type = ')'
+        return t
+
     @TOKEN(r'\n+')
     def t_newline(self, t):
         t.lexer.lineno += len(t.value)

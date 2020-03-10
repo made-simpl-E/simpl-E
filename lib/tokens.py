@@ -9,6 +9,8 @@ reserved = {
 tokens = (
     'NUMBER',
     'FUNC',
+    'FUNC_LPAREN',
+    'FUNC_RPAREN',
     'EQ',
     'GEQ',
     'LEQ',
