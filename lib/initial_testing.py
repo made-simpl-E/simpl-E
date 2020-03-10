@@ -11,6 +11,8 @@ func name(args) {
     return 4 + args
 }
 
+bool = two == 46
+
 name()
 '''
 

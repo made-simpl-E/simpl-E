@@ -9,6 +9,9 @@ reserved = {
 tokens = (
     'NUMBER',
     'FUNC',
+    'EQ',
+    'GEQ',
+    'LEQ',
     'ID',
     'COMMENT',
 ) + tuple(reserved.values())

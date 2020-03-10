@@ -31,6 +31,9 @@ class SimpleLexer(object):
         return self.lexer.token()
 
     t_ignore = r' '
+    t_EQ = '=='
+    t_GEQ = '>='
+    t_LEQ = '<='
     t_MAP_ignore = r' '
     t_ignore_COMMENT = r'\#.*'
 
