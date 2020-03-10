@@ -47,47 +47,6 @@ class SimpleLexer(object):
         self.scope_level -= 1
         self.current_indentation = self.current_indentation[:-4]
 
-    @TOKEN(INT_RE)
-    def t_MAP_INT(self, t):
-        return self.t_INT(t)
-
-    @TOKEN(INT_RE)
-    def t_INT(self, t):
-        t.value = int(t.value)
-        return t
-
-    @TOKEN(FLOAT_RE)
-    def t_MAP_FLOAT(self, t):
-        return self.t_FLOAT(t)
-
-    @TOKEN(FLOAT_RE)
-    def t_FLOAT(self, t):
-        t.value = float(t.value)
-        return t
-
-    @TOKEN('func')
-    def t_FUNC(self, t):
-        self.lexer.push_state('FUNC')
-        self.find_func_id = True
-        return t
-
-    @TOKEN(ID_RE)
-    def t_MAP_IDENTIFIER(self, t):
-        return self.t_IDENTIFIER(t)
-
-    @TOKEN(ID_RE)
-    def t_IDENTIFIER(self, t):
-        t.type = reserved.get(t.value, 'IDENTIFIER')
-        if t.type == 'IDENTIFIER':
-            if self.find_func_id:
-                t.type = 'FUNC_IDENTIFIER'
-                self.find_func_id = False
-                self.find_func_args = True
-            elif self.find_func_args:
-                t.type = 'FUNC_ARG_IDENTIFIER'
-
-        return t
-
     @TOKEN(LBRACE_RE)
     def t_FUNC_lbrace(self, t):
         t.type = '{'
@@ -126,6 +85,47 @@ class SimpleLexer(object):
             t.type = 'FUNC_RPAREN'
         else:
             t.type = ')'
+        return t
+
+    @TOKEN(FLOAT_RE)
+    def t_MAP_FLOAT(self, t):
+        return self.t_FLOAT(t)
+
+    @TOKEN(FLOAT_RE)
+    def t_FLOAT(self, t):
+        t.value = float(t.value)
+        return t
+
+    @TOKEN(INT_RE)
+    def t_MAP_INT(self, t):
+        return self.t_INT(t)
+
+    @TOKEN(INT_RE)
+    def t_INT(self, t):
+        t.value = int(t.value)
+        return t
+
+    @TOKEN('func')
+    def t_FUNC(self, t):
+        self.lexer.push_state('FUNC')
+        self.find_func_id = True
+        return t
+
+    @TOKEN(ID_RE)
+    def t_MAP_IDENTIFIER(self, t):
+        return self.t_IDENTIFIER(t)
+
+    @TOKEN(ID_RE)
+    def t_IDENTIFIER(self, t):
+        t.type = reserved.get(t.value, 'IDENTIFIER')
+        if t.type == 'IDENTIFIER':
+            if self.find_func_id:
+                t.type = 'FUNC_IDENTIFIER'
+                self.find_func_id = False
+                self.find_func_args = True
+            elif self.find_func_args:
+                t.type = 'FUNC_ARG_IDENTIFIER'
+
         return t
 
     @TOKEN(r'\n+')
