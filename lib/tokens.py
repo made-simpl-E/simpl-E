@@ -18,6 +18,10 @@ tokens = (
     'GEQ',
     'LEQ',
     'IDENTIFIER',
+    'PLUS_ASSIGNMENT',
+    'MINUS_ASSIGNMENT',
+    'TIMES_ASSIGNMENT',
+    'DIVIDE_ASSIGNMENT',
     'COMMENT',
 ) + tuple(reserved.values())
 

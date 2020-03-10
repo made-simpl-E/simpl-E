@@ -10,6 +10,8 @@ class SimpleParser:
     precedence = (
         ('left', '+', '-'),
         ('left', '*', '/'),
+        ('right', '=', 'PLUS_ASSIGNMENT', 'MINUS_ASSIGNMENT', \
+                'TIMES_ASSIGNMENT', 'DIVIDE_ASSIGNMENT')
     )
 
     def __init__(self, lexer):
