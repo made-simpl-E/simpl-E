@@ -7,7 +7,8 @@ reserved = {
 }
 
 tokens = (
-    'NUMBER',
+    'INT',
+    'FLOAT',
     'FUNC',
     'FUNC_IDENTIFIER',
     'FUNC_ARG_IDENTIFIER',

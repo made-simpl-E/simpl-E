@@ -47,13 +47,22 @@ class SimpleLexer(object):
         self.scope_level -= 1
         self.current_indentation = self.current_indentation[:-4]
 
-    @TOKEN(NUMBER_RE)
-    def t_MAP_NUMBER(self, t):
-        return self.t_NUMBER(t)
+    @TOKEN(INT_RE)
+    def t_MAP_INT(self, t):
+        return self.t_INT(t)
 
-    @TOKEN(NUMBER_RE)
-    def t_NUMBER(self, t):
+    @TOKEN(INT_RE)
+    def t_INT(self, t):
         t.value = int(t.value)
+        return t
+
+    @TOKEN(FLOAT_RE)
+    def t_MAP_FLOAT(self, t):
+        return self.t_FLOAT(t)
+
+    @TOKEN(FLOAT_RE)
+    def t_FLOAT(self, t):
+        t.value = float(t.value)
         return t
 
     @TOKEN('func')
@@ -63,8 +72,8 @@ class SimpleLexer(object):
         return t
 
     @TOKEN(ID_RE)
-    def t_MAP_ID(self, t):
-        return self.t_ID(t)
+    def t_MAP_IDENTIFIER(self, t):
+        return self.t_IDENTIFIER(t)
 
     @TOKEN(ID_RE)
     def t_IDENTIFIER(self, t):

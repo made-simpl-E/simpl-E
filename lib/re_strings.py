@@ -1,5 +1,6 @@
 ID_RE = r'[a-zA-Z_][a-zA-Z_0-9]*'
-NUMBER_RE = r'\d+'
+INT_RE = r'\d+'
+FLOAT_RE = r'\d+.\d+'
 LBRACE_RE = r'\{'
 RBRACE_RE = r'\}'
 LSQBRACE_RE = r'\['
