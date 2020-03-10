@@ -12,7 +12,7 @@ tokens = (
     'EQ',
     'GEQ',
     'LEQ',
-    'ID',
+    'IDENTIFIER',
     'COMMENT',
 ) + tuple(reserved.values())
 
