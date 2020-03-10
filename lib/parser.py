@@ -51,12 +51,12 @@ class SimpleParser:
             p[0] = p[2]
 
     def p_assignment(self, p):
-        '''assignment : IDENTIFIER '=' expression'''
+        '''assignment : IDENTIFIER '=' expression
+                      | IDENTIFIER PLUS_ASSIGNMENT expression
+                      | IDENTIFIER MINUS_ASSIGNMENT expression
+                      | IDENTIFIER TIMES_ASSIGNMENT expression
+                      | IDENTIFIER DIVIDE_ASSIGNMENT expression'''
         p[0] = p[3]
-
-    def p_unary_op(self, p):
-        '''unary_op : '-' expression %prec UMINUS'''
-        p[0] = -p[2]
 
     def p_binary_op(self, p):
         '''binary_op : expression '+' expression
@@ -71,6 +71,10 @@ class SimpleParser:
             p[0] = p[1] * p[3]
         elif p[2] == '/':
             p[0] = p[1] / p[3]
+
+    def p_unary_op(self, p):
+        '''unary_op : '-' expression %prec UMINUS'''
+        p[0] = -p[2]
 
     def p_number(self, p):
         '''number : INT
