@@ -1,7 +1,7 @@
 import ply.lex as lex
 from ply.lex import TOKEN
 
-from tokens import literals, tokens, reserved, states
+from tokens import literals, tokens, reserved
 from re_strings import *
 
 
@@ -12,11 +12,8 @@ class SimpleLexer(object):
 
     reserved = reserved
 
-    states = states
-
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
-        self.scope_level = 0
         self.current_indentation = ''
 
     def input(self, data):
@@ -25,7 +22,7 @@ class SimpleLexer(object):
     def test(self, data):
         self.input(data)
         for tok in self.lexer:
-            print(self.current_indentation * self.scope_level + str(tok))
+            print(str(tok))
 
     def token(self):
         return self.lexer.token()
@@ -38,34 +35,11 @@ class SimpleLexer(object):
     t_MINUS_ASSIGNMENT = r'-='
     t_TIMES_ASSIGNMENT = r'\*='
     t_DIVIDE_ASSIGNMENT = r'\/='
-    t_MAP_ignore = r' '
     t_ignore_COMMENT = r'\#.*'
-
-    def _push_scope(self):
-        self.scope_level += 1
-        self.current_indentation += '    '
-
-    def _pop_scope(self):
-        self.scope_level -= 1
-        self.current_indentation = self.current_indentation[:-4]
-
-    @TOKEN(LBRACE_RE)
-    def t_FUNC_lbrace(self, t):
-        t.type = '{'
-        self._push_scope()
-        self.find_func_args = False
-        return t
 
     @TOKEN(LBRACE_RE)
     def t_lbrace(self, t):
         t.type = '{'
-        return t
-
-    @TOKEN(RBRACE_RE)
-    def t_FUNC_rbrace(self, t):
-        t.type = '}'
-        self._pop_scope()
-        self.lexer.pop_state()
         return t
 
     @TOKEN(RBRACE_RE)
@@ -84,17 +58,9 @@ class SimpleLexer(object):
         return t
 
     @TOKEN(FLOAT_RE)
-    def t_MAP_FLOAT(self, t):
-        return self.t_FLOAT(t)
-
-    @TOKEN(FLOAT_RE)
     def t_FLOAT(self, t):
         t.value = float(t.value)
         return t
-
-    @TOKEN(INT_RE)
-    def t_MAP_INT(self, t):
-        return self.t_INT(t)
 
     @TOKEN(INT_RE)
     def t_INT(self, t):
@@ -102,23 +68,13 @@ class SimpleLexer(object):
         return t
 
     @TOKEN(ID_RE)
-    def t_MAP_IDENTIFIER(self, t):
-        return self.t_IDENTIFIER(t)
-
-    @TOKEN(ID_RE)
     def t_IDENTIFIER(self, t):
         t.type = reserved.get(t.value, 'IDENTIFIER')
-        if t.type == 'FUNC':
-            self.lexer.push_state('FUNC')
         return t
 
     @TOKEN(r'\n+')
     def t_newline(self, t):
         t.lexer.lineno += len(t.value)
-
-    def t_MAP_error(self, t):
-        print(f"Illegal character in map: {t.value[0]}")
-        t.lexer.skip(1)
 
     def t_error(self, t):
         print(f"Illegal character: {t.value[0]}")

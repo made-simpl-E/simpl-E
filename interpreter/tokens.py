@@ -40,8 +40,3 @@ literals = [
     '>',
 ]
 
-states = (
-    ('MAP', 'exclusive'),
-    ('FUNC', 'inclusive'),
-)
-
