@@ -5,6 +5,20 @@ reserved = {
     'while': 'WHILE',
     'in': 'IN',
     'func': 'FUNC',
+    'is': 'IS',
+    'obj': 'OBJ',
+    'return': 'RETURN',
+    'pass': 'PASS',
+    'break': 'BREAK',
+    'raise': 'RAISE',
+    'continue': 'CONTINUE',
+    'not': 'NOT',
+    'assert': 'ASSERT',
+    # Reserved types
+    'int': 'INT_T',
+    'float': 'FLOAT_T',
+    'bool': 'BOOL_T',
+    'string': 'STRING_T',
 }
 
 tokens = (
@@ -13,11 +27,11 @@ tokens = (
     'EQ',
     'GEQ',
     'LEQ',
-    'IDENTIFIER',
     'PLUS_ASSIGNMENT',
     'MINUS_ASSIGNMENT',
     'TIMES_ASSIGNMENT',
     'DIVIDE_ASSIGNMENT',
+    'IDENTIFIER',
     'COMMENT',
 ) + tuple(reserved.values())
 
