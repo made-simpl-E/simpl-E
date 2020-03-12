@@ -101,12 +101,6 @@ class SimpleLexer(object):
         t.value = int(t.value)
         return t
 
-    @TOKEN('func')
-    def t_FUNC(self, t):
-        self.lexer.push_state('FUNC')
-        self.find_func_id = True
-        return t
-
     @TOKEN(ID_RE)
     def t_MAP_IDENTIFIER(self, t):
         return self.t_IDENTIFIER(t)
@@ -114,6 +108,8 @@ class SimpleLexer(object):
     @TOKEN(ID_RE)
     def t_IDENTIFIER(self, t):
         t.type = reserved.get(t.value, 'IDENTIFIER')
+        if t.type == 'FUNC':
+            self.lexer.push_state('FUNC')
         return t
 
     @TOKEN(r'\n+')

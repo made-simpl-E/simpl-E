@@ -4,13 +4,12 @@ reserved = {
     'for': 'FOR',
     'while': 'WHILE',
     'in': 'IN',
+    'func': 'FUNC',
 }
 
 tokens = (
     'INT',
     'FLOAT',
-    'BOOL',
-    'FUNC',
     'EQ',
     'GEQ',
     'LEQ',
