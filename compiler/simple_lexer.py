@@ -17,8 +17,6 @@ class SimpleLexer(object):
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
         self.scope_level = 0
-        self.find_func_id = False
-        self.find_func_args = False
         self.current_indentation = ''
 
     def input(self, data):
@@ -77,18 +75,12 @@ class SimpleLexer(object):
 
     @TOKEN(LPAREN_RE)
     def t_lparen(self, t):
-        if self.find_func_args:
-            t.type = 'FUNC_LPAREN'
-        else:
-            t.type = '('
+        t.type = '('
         return t
 
     @TOKEN(RPAREN_RE)
     def t_rparen(self, t):
-        if self.find_func_args:
-            t.type = 'FUNC_RPAREN'
-        else:
-            t.type = ')'
+        t.type = ')'
         return t
 
     @TOKEN(FLOAT_RE)
@@ -122,14 +114,6 @@ class SimpleLexer(object):
     @TOKEN(ID_RE)
     def t_IDENTIFIER(self, t):
         t.type = reserved.get(t.value, 'IDENTIFIER')
-        if t.type == 'IDENTIFIER':
-            if self.find_func_id:
-                t.type = 'FUNC_IDENTIFIER'
-                self.find_func_id = False
-                self.find_func_args = True
-            elif self.find_func_args:
-                t.type = 'FUNC_ARG_IDENTIFIER'
-
         return t
 
     @TOKEN(r'\n+')
