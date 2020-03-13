@@ -22,6 +22,7 @@ reserved = {
 }
 
 tokens = (
+    'NEWLINE',
     'INT',
     'FLOAT',
     'EQ',

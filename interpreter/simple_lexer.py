@@ -75,6 +75,8 @@ class SimpleLexer(object):
     @TOKEN(r'\n+')
     def t_newline(self, t):
         t.lexer.lineno += len(t.value)
+        t.type = 'NEWLINE'
+        return t
 
     def t_error(self, t):
         print(f"Illegal character: {t.value[0]}")
