@@ -12,17 +12,24 @@ class SimpleLexer(object):
 
     reserved = reserved
 
-    def __init__(self, **kwargs):
+    def __init__(self, test_mode=False, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
         self.current_indentation = ''
+        self.test_mode = test_mode
 
     def input(self, data):
         self.lexer.input(data)
 
     def test(self, data):
         self.input(data)
+        if self.test_mode: output = []
         for tok in self.lexer:
-            print(str(tok))
+            if self.test_mode:
+                output.append(tok)
+            else:
+                print(tok)
+        if self.test_mode:
+            return output
 
     def token(self):
         return self.lexer.token()
