@@ -12,6 +12,6 @@ if __name__ == '__main__':
     fourth = second * third / first
     fifth = fourth - first'''
     lexer = SimpleLexer(test_mode=True)
-    output = lexer.test(code)
-    print(output)
+    results = lexer.test(code)
+    results.print()
 

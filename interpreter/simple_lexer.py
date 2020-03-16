@@ -3,6 +3,7 @@ from ply.lex import TOKEN
 
 from tokens import literals, tokens, reserved
 from re_strings import *
+from test_objects import LexerTestResults
 
 
 class SimpleLexer(object):
@@ -22,19 +23,25 @@ class SimpleLexer(object):
 
     def test(self, data):
         self.input(data)
-        if self.test_mode: output = []
+        if self.test_mode:
+            results = LexerTestResults()
         for tok in self.lexer:
             if self.test_mode:
-                output.append(tok)
+                results.add_tok(tok, self.find_column(data, tok))
             else:
                 print(tok)
         if self.test_mode:
-            return output
+            return results
 
     def token(self):
         return self.lexer.token()
 
-    t_ignore = r' '
+    @staticmethod
+    def find_column(data, token):
+        line_start = data.rfind('\n', 0, token.lexpos) + 1
+        return (token.lexpos - line_start) + 1
+
+    t_ignore = ' \t'
     t_EQ = r'=='
     t_GEQ = r'>='
     t_LEQ = r'<='
